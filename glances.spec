@@ -4,7 +4,7 @@
 #
 Name     : glances
 Version  : 2.11
-Release  : 15
+Release  : 16
 URL      : https://github.com/nicolargo/glances/archive/v2.11.tar.gz
 Source0  : https://github.com/nicolargo/glances/archive/v2.11.tar.gz
 Summary  : No detailed summary available
