@@ -4,29 +4,23 @@
 #
 Name     : glances
 Version  : 2.11
-Release  : 21
+Release  : 22
 URL      : https://github.com/nicolargo/glances/archive/v2.11.tar.gz
 Source0  : https://github.com/nicolargo/glances/archive/v2.11.tar.gz
-Summary  : No detailed summary available
+Summary  : CLI curses-based monitoring tool
 Group    : Development/Tools
 License  : LGPL-3.0
-Requires: glances-bin
-Requires: glances-python3
-Requires: glances-license
-Requires: glances-man
-Requires: glances-python
+Requires: glances-bin = %{version}-%{release}
+Requires: glances-license = %{version}-%{release}
+Requires: glances-man = %{version}-%{release}
+Requires: glances-python = %{version}-%{release}
+Requires: glances-python3 = %{version}-%{release}
 Requires: psutil
-BuildRequires : pbr
-BuildRequires : pip
+BuildRequires : buildreq-distutils3
 BuildRequires : pluggy
 BuildRequires : psutil
 BuildRequires : py-python
 BuildRequires : pytest
-BuildRequires : python-core
-BuildRequires : python3-core
-BuildRequires : python3-dev
-BuildRequires : setuptools
-BuildRequires : setuptools-legacypython
 BuildRequires : tox
 BuildRequires : virtualenv
 
@@ -38,8 +32,7 @@ Glances - An eye on your system
 %package bin
 Summary: bin components for the glances package.
 Group: Binaries
-Requires: glances-license
-Requires: glances-man
+Requires: glances-license = %{version}-%{release}
 
 %description bin
 bin components for the glances package.
@@ -48,19 +41,10 @@ bin components for the glances package.
 %package doc
 Summary: doc components for the glances package.
 Group: Documentation
-Requires: glances-man
+Requires: glances-man = %{version}-%{release}
 
 %description doc
 doc components for the glances package.
-
-
-%package legacypython
-Summary: legacypython components for the glances package.
-Group: Default
-Requires: python-core
-
-%description legacypython
-legacypython components for the glances package.
 
 
 %package license
@@ -82,7 +66,7 @@ man components for the glances package.
 %package python
 Summary: python components for the glances package.
 Group: Default
-Requires: glances-python3
+Requires: glances-python3 = %{version}-%{release}
 
 %description python
 python components for the glances package.
@@ -105,9 +89,9 @@ export http_proxy=http://127.0.0.1:9/
 export https_proxy=http://127.0.0.1:9/
 export no_proxy=localhost,127.0.0.1,0.0.0.0
 export LANG=C
-export SOURCE_DATE_EPOCH=1530372141
-python2 setup.py build -b py2
-python3 setup.py build -b py3
+export SOURCE_DATE_EPOCH=1554320360
+export MAKEFLAGS=%{?_smp_mflags}
+python3 setup.py build
 
 %check
 export http_proxy=http://127.0.0.1:9/
@@ -115,12 +99,11 @@ export https_proxy=http://127.0.0.1:9/
 export no_proxy=localhost,127.0.0.1,0.0.0.0
 PYTHONPATH=%{buildroot}/usr/lib/python3.7/site-packages python3 setup.py test
 %install
-export SOURCE_DATE_EPOCH=1530372141
+export MAKEFLAGS=%{?_smp_mflags}
 rm -rf %{buildroot}
-mkdir -p %{buildroot}/usr/share/doc/glances
-cp COPYING %{buildroot}/usr/share/doc/glances/COPYING
-python2 -tt setup.py build -b py2 install --root=%{buildroot} --force
-python3 -tt setup.py build -b py3 install --root=%{buildroot} --force
+mkdir -p %{buildroot}/usr/share/package-licenses/glances
+cp COPYING %{buildroot}/usr/share/package-licenses/glances/COPYING
+python3 -tt setup.py build  install --root=%{buildroot}
 echo ----[ mark ]----
 cat %{buildroot}/usr/lib/python3*/site-packages/*/requires.txt || :
 echo ----[ mark ]----
@@ -136,16 +119,12 @@ echo ----[ mark ]----
 %defattr(0644,root,root,0755)
 %doc /usr/share/doc/glances/*
 
-%files legacypython
-%defattr(-,root,root,-)
-/usr/lib/python2*/*
-
 %files license
-%defattr(-,root,root,-)
-/usr/share/doc/glances/COPYING
+%defattr(0644,root,root,0755)
+/usr/share/package-licenses/glances/COPYING
 
 %files man
-%defattr(-,root,root,-)
+%defattr(0644,root,root,0755)
 /usr/share/man/man1/glances.1
 
 %files python
