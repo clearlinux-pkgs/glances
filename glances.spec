@@ -4,7 +4,7 @@
 #
 Name     : glances
 Version  : 2.11
-Release  : 23
+Release  : 24
 URL      : https://github.com/nicolargo/glances/archive/v2.11.tar.gz
 Source0  : https://github.com/nicolargo/glances/archive/v2.11.tar.gz
 Summary  : CLI curses-based monitoring tool
