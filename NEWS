@@ -1,13 +1,209 @@
 ==============================================================================
+Glances Version 3
+==============================================================================
+
+Version 3.1
+===========
+
+Enhancements and new features:
+
+    * Add a CSV output format to the STDOUT output mode #1363
+    * Feature request: HDD S.M.A.R.T. reports (thanks to @tnibert) #1288
+    * Sort docker stats #1276
+    * Prohibit some plug-in data from being exported to influxdb #1368
+    * Disable plugin from Glances configuration file #1378
+    * Curses-browser's server list paging added (thanks to @limfreee) #1385
+    * Client Browser's thread management added (thanks to @limfreee) #1391
+
+Bugs corrected:
+
+    * TypeError: '<' not supported between instances of 'float' and 'str' #1315
+    * GPU plugin not exported to influxdb #1333
+    * Crash after running fine for several hours #1335
+    * Timezone listed doesn’t match system timezone, outputs wrong time #1337
+    * Compare issue with Process.cpu_times() #1339
+    * ERROR -- Can not grab extended stats (invalid attr name 'num_fds') #1351
+    * Action on port/web plugins is not working #1358
+    * Support for monochrome (serial) terminals e.g. vt220 #1362
+    * TypeError on opening (Wifi plugin) #1373
+    * Some field name are incorrect in CSV export #1372
+    * Standard output misbehaviour (need to flush) #1376
+    * Create an option to set the username to use in Web or RPC Server mode #1381
+    * Missing kernel task names when the webui is switched to long process names #1371
+    * Drive name with special characters causes crash #1383
+    * Cannot get stats in Cloud plugin (404) #1384
+
+Others:
+
+    * Add Docker documentation (thanks to @rgarrigue)
+    * Refactor Glances logs (now called Glances events)
+    * "chart" extra dep replace by "graph" #1389
+
+Version 3.0.2
+=============
+
+Bug corrected:
+
+    * Glances IO Errorno 22 - Invalid argument #1326
+
+Version 3.0.1
+=============
+
+Bug corrected:
+
+    *  AMPs error if no output are provided by the system call #1314
+
+Version 3.0
+===========
+
+See the release note here: https://github.com/nicolargo/glances/wiki/Glances-3.0-Release-Note
+
+Enhancements and new features:
+
+    * Make the left side bar width dynamic in the Curse UI #1177
+    * Add threads number in the process list #1259
+    * A way to have only REST API available and disable WEB GUI access #1149
+    * Refactor graph export plugin (& replace Matplolib by Pygal) #697
+    * Docker module doesn't export details about stopped containers #1152
+    * Add dynamic fields in all sections of the configuration file #1204
+    * Make plugins and export CLI option dynamical #1173
+    * Add a light mode for the console UI #1165
+    * Refactor InfluxDB (API is now stable) #1166
+    * Add deflate compression support to the RestAPI #1182
+    * Add a code of conduct for Glances project's participants #1211
+    * Context switches bottleneck identification #1212
+    * Take advantage of the psutil issue #1025 (Add process_iter(attrs, ad_value)) #1105
+    * Nice Process Priority Configuration #1218
+    * Display debug message if dep lib is not found #1224
+    * Add a new output mode to stdout #1168
+    * Huge refactor of the WebUI packaging thanks to @spike008t #1239
+    * Add time zone to the current time #1249
+    * Use HTTPs URLs to check public IP address #1253
+    * Add labels support to Promotheus exporter #1255
+    * Overlap in Web UI when monitoring a machine with 16 cpu threads #1265
+    * Support for exporting data to a MQTT server #1305
+
+    One more thing ! A new Grafana Dash is available with:
+    * Network interface variable
+    * Disk variable
+    * Container CPU
+
+Bugs corrected:
+
+    * Crash in the Wifi plugin on my Laptop #1151
+    * Failed to connect to bus: No such file or directory #1156
+    * glances_plugin.py has a problem with specific docker output #1160
+    * Key error 'address' in the IP plugin #1176
+    * NameError: name 'mode' is not defined in case of interrupt shortly after starting the server mode #1175
+    * Crash on startup: KeyError: 'hz_actual_raw' on Raspbian 9.1 #1170
+    * Add missing mount-observe and system-observe interfaces #1179
+    * OS specific arguments should be documented and reported #1180
+    * 'ascii' codec can't encode character u'\U0001f4a9' in position 4: ordinal not in range(128) #1185
+    * KeyError: 'memory_info' on stats sum #1188
+    * Electron/Atom processes displayed wrong in process list #1192
+    * Another encoding issue... With both Python 2 and Python 3 #1197
+    * Glances do not exit when eating 'q' #1207
+    * FreeBSD blackhole bug #1202
+    * Glances crashes when mountpoint with non ASCII characters exists #1201
+    * [WEB UI] Minor issue on the Web UI #1240
+    * [Glances 3.0 RC1] Client/Server is broken #1244
+    * Fixing horizontal scrolling #1248
+    * Stats updated during export (thread issue) #1250
+    * Glances --browser crashed when more than 40 glances servers on screen 78x45 #1256
+    * OSX - Python 3 and empty percent and res #1251
+    * Crashes when influxdb option set #1260
+    * AMP for kernel process is not working #1261
+    * Arch linux package (2.11.1-2) psutil (v5.4.1): RuntimeWarning: ignoring OSError #1203
+    * Glances crash with extended process stats #1283
+    * Terminal window stuck at the last accessed *protected* server #1275
+    * Glances shows mdadm RAID0 as degraded when chunksize=128k and the array isn't degraded. #1299
+    * Never starts in a server on Google Cloud and FreeBSD #1292
+
+Backward-incompatible changes:
+
+    * Support for Python 3.3 has been dropped (EOL 2017-09-29)
+    * Support for psutil < 5.3.0 has been dropped
+    * Minimum supported Docker API version is now 1.21 (Docker plugins)
+    * Support for InfluxDB < 0.9 is deprecated (InfluxDB exporter)
+    * Zeroconf lib should be pinned to 0.19.1 for Python 2.x
+    * --disable-<plugin> no longer available (use --disable-plugin <plugin>)
+    * --export-<exporter> no longer available (use --export <exporter>)
+
+News command line options:
+
+    --disable-webui  Disable the WebUI (only RESTful API will respond)
+    --enable-light   Enable the light mode for the UI interface
+    --modules-list   Display plugins and exporters list
+    --disable-plugin plugin1,plugin2
+                     Disable a list of comma separated plugins
+    --export exporter1,exporter2
+                     Export stats to a comma separated exporters
+    --stdout plugin1,plugin2.attribute
+                     Display stats to stdout
+
+News configuration keys in the glances.conf file:
+
+Graph:
+
+    [graph]
+    # Configuration for the --export graph option
+    # Set the path where the graph (.svg files) will be created
+    # Can be overwrite by the --graph-path command line option
+    path=/tmp
+    # It is possible to generate the graphs automatically by setting the
+    # generate_every to a non zero value corresponding to the seconds between
+    # two generation. Set it to 0 to disable graph auto generation.
+    generate_every=60
+    # See followings configuration keys definitions in the Pygal lib documentation
+    # http://pygal.org/en/stable/documentation/index.html
+    width=800
+    height=600
+    style=DarkStyle
+
+Processes list Nice value:
+
+    [processlist]
+    # Nice priorities range from -20 to 19.
+    # Configure nice levels using a comma separated list.
+    #
+    # Nice: Example 1, non-zero is warning (default behavior)
+    nice_warning=-20,-19,-18,-17,-16,-15,-14,-13,-12,-11,-10,-9,-8,-7,-6,-5,-4,-3,-2,-1,1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19
+    #
+    # Nice: Example 2, low priority processes escalate from careful to critical
+    #nice_careful=1,2,3,4,5,6,7,8,9
+    #nice_warning=10,11,12,13,14
+    #nice_critical=15,16,17,18,19
+
+Docker plugin (related to #1152)
+
+    [docker]
+    # By default, Glances only display running containers
+    # Set the following key to True to display all containers
+    all=False
+
+All configuration file values (related to #1204)
+
+    [influxdb]
+    # It is possible to use dynamic system command
+    prefix=`hostname`
+    tags=foo:bar,spam:eggs,system:`uname -a`
+
+==============================================================================
 Glances Version 2
 ==============================================================================
+
+Version 2.11.1
+==============
+
+    * [WebUI] Sensors not showing on Web (issue #1142)
+    * Client and Quiet mode don't work together (issue #1139)
 
 Version 2.11
 ============
 
 Enhancements and new features:
 
-    * New export plugin: standard and configurable Restfull exporter (issue #1129)
+    * New export plugin: standard and configurable RESTful exporter (issue #1129)
     * Add a JSON export module (issue #1130)
     * [WIP] Refactoring of the WebUI
 
@@ -85,7 +281,7 @@ Version 2.8.8
 Bugs corrected:
 
     * Drop requests to check for outdated Glances version
-    *  Glances cannot load "Powersupply" (issue #1051)
+    * Glances cannot load "Powersupply" (issue #1051)
 
 Version 2.8.7
 =============
@@ -120,7 +316,7 @@ Version 2.8.3
 
 Enhancements and new features:
 
-    * Use new sensors-related APIs of Psutil 5.1.0 (issue #1018)
+    * Use new sensors-related APIs of psutil 5.1.0 (issue #1018)
     * Add a "Cloud" plugin to grab stats inside the AWS EC2 API (issue #1029)
 
 Bugs corrected:
@@ -532,8 +728,8 @@ Version 2.1
       Users can configure alias from the Glances configuration file.
     * Add Glances log message (in the /tmp/glances.log file)
       The default log level is INFO, you can switch to the DEBUG mode using the -d option on the command line.
-    * Add RESTFul API to the Web server mode
-      RestFul API doc: https://github.com/nicolargo/glances/wiki/The-Glances-RESTFULL-JSON-API
+    * Add RESTful API to the Web server mode
+      RESTful API doc: https://github.com/nicolargo/glances/wiki/The-Glances-RESTFULL-JSON-API
     * Improve SNMP fallback mode for Cisco IOS, VMware ESXi
     * Add --theme-white feature to optimize display for white background
     * Experimental history feature (--enable-history option on the command line)
@@ -615,7 +811,7 @@ Version 2.0
     * Load-5 alert are no longer logged (by Nicolargo)
     * Rename In/Out by Read/Write for DiskIO according to #339 (by Nicolargo)
     * Migrate from pysensors to py3sensors (by Alessio Sergi)
-    * Migration to PsUtil 2.x (by Nicolargo)
+    * Migration to psutil 2.x (by Nicolargo)
     * New plugins system (by Nicolargo)
     * Python 2.x and 3.x compatibility (by Alessio Sergi)
     * Code quality improvements (by Alessio Sergi)
@@ -631,7 +827,7 @@ Version 1.7.7
 =============
 
     * Fix CVS export [issue #348]
-    * Adapt to PSUtil 2.1.1
+    * Adapt to psutil 2.1.1
     * Compatibility with Python 3.4
     * Improve German update
 
@@ -646,7 +842,7 @@ Version 1.7.6
 Version 1.7.5
 =============
 
-    * Force the Pypi installer to use the PsUtil branch 1.x (#333)
+    * Force the PyPI installer to use the psutil branch 1.x (#333)
 
 Version 1.7.4
 =============
@@ -684,7 +880,7 @@ Version 1.7.1
     * Fix IoWait error on FreeBSD / Mac OS
     * HDDTemp module is now Python v3 compatible
     * Don't warn a process is not running if countmin=0
-    * Add Pypi badge on the README.rst
+    * Add PyPI badge on the README.rst
     * Update documentation
     * Add document structure for http://readthedocs.org
 
@@ -716,7 +912,7 @@ Version 1.6.1
     * API improvment add time_since_update for disk, process_disk and network
     * Improve help display
     * Add more dummy FS to the ignore list
-    * Code refactory: PsUtil < 0.4.1 is depredicated (Thk to Alessio)
+    * Code refactory: psutil < 0.4.1 is deprecated (Thk to Alessio)
     * Correct a bug on the CPU process limit
     * Fix crash bug when specifying custom server port
     * Add Debian style init script for the Glances server
@@ -750,8 +946,8 @@ Version 1.5.2
 Version 1.5.1
 =============
 
-    * Patch for PsUtil 0.4 compatibility
-    * Test PsUtil version before running Glances
+    * Patch for psutil 0.4 compatibility
+    * Test psutil version before running Glances
 
 Version 1.5
 ===========
@@ -777,7 +973,7 @@ Version 1.4.2.1
 Version 1.4.2
 =============
 
-    * Use the new virtual_memory() and virtual_swap() fct (PsUtil)
+    * Use the new virtual_memory() and virtual_swap() fct (psutil)
     * Display "Top process" in logs
     * Minor patch on man page for Debian packaging
     * Code optimization (less try and except)
@@ -785,7 +981,7 @@ Version 1.4.2
 Version 1.4.1.1
 ===============
 
-    * Minor patch to disable Process IO for OS X (not available in PsUtil)
+    * Minor patch to disable Process IO for OS X (not available in psutil)
 
 Version 1.4.1
 =============
@@ -797,7 +993,7 @@ Version 1.4.1
 Version 1.4
 ===========
 
-    * Goodby StatGrab... Welcome to the PsUtil library !
+    * Goodby StatGrab... Welcome to the psutil library !
     * No more autotools, use setup.py to install (or package)
     * Only major stats (CPU, Load and memory) use background colors
     * Improve operating system name detection
