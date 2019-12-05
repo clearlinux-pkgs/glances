@@ -4,7 +4,7 @@
 #
 Name     : glances
 Version  : 3.1.0
-Release  : 25
+Release  : 26
 URL      : https://github.com/nicolargo/glances/archive/v3.1.0.tar.gz
 Source0  : https://github.com/nicolargo/glances/archive/v3.1.0.tar.gz
 Summary  : No detailed summary available
