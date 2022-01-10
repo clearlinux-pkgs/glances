@@ -4,7 +4,7 @@
 #
 Name     : glances
 Version  : 3.2.3.1
-Release  : 48
+Release  : 49
 URL      : https://github.com/nicolargo/glances/archive/v3.2.3.1/glances-3.2.3.1.tar.gz
 Source0  : https://github.com/nicolargo/glances/archive/v3.2.3.1/glances-3.2.3.1.tar.gz
 Summary  : A cross-platform curses-based monitoring tool
@@ -15,18 +15,16 @@ Requires: glances-license = %{version}-%{release}
 Requires: glances-man = %{version}-%{release}
 Requires: glances-python = %{version}-%{release}
 Requires: glances-python3 = %{version}-%{release}
-Requires: defusedxml
-Requires: psutil
-Requires: python-future
+Requires: pypi(future)
 BuildRequires : buildreq-distutils3
-BuildRequires : defusedxml
-BuildRequires : pluggy
-BuildRequires : psutil
-BuildRequires : py-python
-BuildRequires : pytest
-BuildRequires : python-future
-BuildRequires : tox
-BuildRequires : virtualenv
+BuildRequires : pypi(defusedxml)
+BuildRequires : pypi(future)
+BuildRequires : pypi(psutil)
+BuildRequires : pypi(py)
+BuildRequires : pypi-pluggy
+BuildRequires : pypi-pytest
+BuildRequires : pypi-tox
+BuildRequires : pypi-virtualenv
 
 %description
 ===============================
@@ -83,6 +81,7 @@ Requires: python3-core
 Provides: pypi(glances)
 Requires: pypi(defusedxml)
 Requires: pypi(future)
+Requires: pypi(packaging)
 Requires: pypi(psutil)
 
 %description python3
@@ -98,7 +97,7 @@ export http_proxy=http://127.0.0.1:9/
 export https_proxy=http://127.0.0.1:9/
 export no_proxy=localhost,127.0.0.1,0.0.0.0
 export LANG=C.UTF-8
-export SOURCE_DATE_EPOCH=1635730808
+export SOURCE_DATE_EPOCH=1641837353
 export GCC_IGNORE_WERROR=1
 export CFLAGS="$CFLAGS -fno-lto "
 export FCFLAGS="$FFLAGS -fno-lto "
