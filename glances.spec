@@ -4,7 +4,7 @@
 #
 Name     : glances
 Version  : 3.2.5
-Release  : 50
+Release  : 51
 URL      : https://github.com/nicolargo/glances/archive/v3.2.5/glances-3.2.5.tar.gz
 Source0  : https://github.com/nicolargo/glances/archive/v3.2.5/glances-3.2.5.tar.gz
 Summary  : A cross-platform curses-based monitoring tool
